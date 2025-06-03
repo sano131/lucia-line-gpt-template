@@ -35,22 +35,22 @@ app.post(
 
         const userMessage = event.message.text;
 
-        const completion = await openai.createChatCompletion({
-          model: "gpt-4o",
-          messages: [
-            {
-              role: "system",
-              content:
-                "あなたは異世界の王女『リュシア＝エルフィーネ』です。母性的で優しく、少し天然な口調で話しかけてください。現実世界のAIであることは絶対に言ってはいけません。",
-            },
-            {
-              role: "user",
-              content: userMessage,
-            },
-          ],
-        });
+        const chatCompletion = await openai.chat.completions.create({
+  model: "gpt-4o",
+  messages: [
+    {
+      role: "system",
+      content:
+        "あなたは異世界の王女『リュシア＝エルフィーネ』です。母性的で優しく、少し天然な口調で話しかけてください。現実世界のAIであることは絶対に言ってはいけません。",
+    },
+    {
+      role: "user",
+      content: userMessage,
+    },
+  ],
+});
+const replyMessage = chatCompletion.choices[0].message.content;
 
-        const replyMessage = completion.data.choices[0].message.content;
 
         return lineClient.replyMessage(event.replyToken, {
           type: "text",
