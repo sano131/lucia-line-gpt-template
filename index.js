@@ -7,11 +7,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // OpenAI 設定
-const openai = new OpenAIApi(
-  new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-  })
-);
+const OpenAI = require("openai");
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 // LINE設定
 const config = {
